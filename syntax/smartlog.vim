@@ -1,4 +1,3 @@
-syn include @pythonSyn syntax/python.vim
 syn match logDate /^\d\{4}-\d\{2}-\d\{2}/ nextgroup=logTime skipwhite
 syn match logTime /\d\{2}:\d\{2}:\d\{2},\d\{3}/ nextgroup=logError,logWarn,foo1
 syn match call /<<: Call / nextgroup=fname
@@ -15,7 +14,10 @@ syn match module /[^]]\+/ contained
 syn match openFold /<<;/
 syn match closeFold /;>>/
 
-syn region result	start=+^result =+	end=+;>>+ contains=@pythonSyn
+if g:smartlog_result_syntax
+  execute! "syn include @resultSyn" g:smartlog_result_syntax
+  syn region result	start=+^result =+	end=+;>>+ contains=@resultSyn
+endif
 
 hi Discrete gui=NONE guifg=#333333 guibg=NONE ctermfg=8 ctermbg=NONE
 
